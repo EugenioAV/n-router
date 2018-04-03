@@ -1,0 +1,5 @@
+{
+  "local": "mysql://localhost/studentsdatabase?user=root&password=tdutybq0109",
+  "nrouter": "mysql://localhost/nrouter?user=root&password=tdutybq0109",
+  "yandex.weather": "https://api.weather.yandex.ru/v1/forecast"
+}
