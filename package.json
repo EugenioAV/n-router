@@ -18,7 +18,10 @@
     "mocha": "^4.0.1",
     "node-expat": "^2.3.16",
     "nodemon": "^1.11.0",
-    "nyc": "^11.2.1"
+    "nyc": "^11.2.1",
+    "pg": "^7.4.1",
+    "pg-query-stream": "^1.1.1",
+    "request": "^2.85.0"
   },
   "dependencies": {
     "mysql": "^2.13.0"
