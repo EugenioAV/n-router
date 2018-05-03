@@ -1,7 +1,0 @@
-{
-  "local": "mysql://localhost/studentsdatabase?user=root&password=tdutybq0109",
-  "nrouter-mysql": "mysql://localhost/nrouter?user=root&password=tdutybq0109",
-  "nrouter-pg": "postgresql://postgres:tdutybq0109@localhost:5432/nrouter",
-  "cbr": "http://www.cbr.ru/scripts/XML_daily_eng.asp",
-  "openweathermap": "http://api.openweathermap.org/data/2.5/find"
-}
