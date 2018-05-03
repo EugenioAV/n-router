@@ -27,12 +27,11 @@ function listener(req, res) {
 
   if (properties.method == 'GET' || properties.method == 'DELETE') {    
     let connection = new connectors[properties.type]['withoutBody'](properties);
-    //let connect = connection.create();
+    let connect = connection.create();
 
     if (properties.type == 'web')
       connection.create().pipe(res);
     else {
-      let connect = new connectors[properties.type]['withoutBody'](properties);
       connect.pipe(transform).pipe(res);
 
       transform.on('end', () => {
