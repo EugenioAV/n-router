@@ -8,44 +8,56 @@ const server = http.createServer(listener);
 server.listen(3000);
 
 function listener(req, res) {
-  /* get the information from req: type, system, name, format of output, sql, format of body */
+  /* get the information from request*/
   const properties = requestParse(req);
-  if (!properties) {
-    return res.end('This path is not correct');
-  }
+  if (!properties) return res.end('This path is not correct');
 
-  if (!properties.path) 
-    return res.end(`Unknown system ${properties.system}`);
+  const Connector = connectors[properties.type];
+  if (!Connector) return res.end(`Unknown this type of service ${properties.type}`);
+  const connection = new Connector[properties.method](properties);
+
+  if (!properties.path) return res.end(`Unknown system ${properties.system}`);
 
   const Transformer = transformers[properties.format || 'xml'];
-  if (!Transformer)
-    return res.end('Unknown this format');
+  if (!Transformer) return res.end('Unknown this format');
   res.writeHead(200, {
     'Content-Type': Transformer.contentType
   });
   const transform = new Transformer();
 
-  if (properties.method == 'GET' || properties.method == 'DELETE') {    
-    let connection = new connectors[properties.type]['withoutBody'](properties);
-    let connect = connection.create();
+  switch (properties.method) {
+    case 'GET': 
+    case 'DELETE': {
+      const connect = connection.create();
+      if (properties.type == 'web')
+        connect.pipe(res);
+      else {
+        connect.pipe(transform).pipe(res);
 
-    if (properties.type == 'web')
-      connection.create().pipe(res);
-    else {
-      connect.pipe(transform).pipe(res);
-
-      transform.on('end', () => {
-        connection.close();
-        res.end();
-      });
+        transform.on('end', () => {
+          connection.close();
+          res.end();
+        });
+      }
+      break;
     }
-  } else {
-    let convert = new converter[properties.convertType]();
-    let connection = new connectors[properties.type]['withBody'](properties);
-    req.pipe(convert).pipe(connection).pipe(transform).pipe(res);
-    transform.on('end', () => {
-      res.end();
-    });
+    case 'POST': 
+    case 'PATCH': {
+      const convert = new converter[properties.convertType]();
+
+      if (properties.type != 'web') {
+        req.pipe(convert).pipe(connection).pipe(transform).pipe(res);
+        transform.on('end', () => {
+          res.end();
+        });
+      } else {
+        req.pipe(connection.create()).pipe(res);   
+      }
+      break;    
+    }
+    default: {
+      return res.end(`This request method ${properties.method} not supported`);
+    }
   }
 }
 
