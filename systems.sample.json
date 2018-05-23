@@ -1,0 +1,14 @@
+{
+  "systems": {
+    "database": "postgresql://user:password@localhost:5432/database",
+    "service": "http://www.cbr.ru/scripts/XML_daily_eng.asp"
+  },
+  "tokens": {
+    "ea135929105c4f29a0f5117d2960926f" : {
+      "create": false,
+      "read": true,
+      "update": false,
+      "delete": false
+    }
+  }
+}
