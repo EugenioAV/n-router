@@ -1,0 +1,11 @@
+{
+  "systems": {  },
+  "tokens": {
+    "ea135929105c4f29a0f5117d2960926f" : {
+      "create": true,
+      "read": true,
+      "update": false,
+      "delete": false
+    }
+  }
+}
