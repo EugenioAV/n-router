@@ -1,4 +1,4 @@
-const converters = require('../lib/converter');
+const converters = require('../lib/converters');
 const stream = require('stream');
 const expect = require('chai').expect;
 

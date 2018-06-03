@@ -1,7 +1,6 @@
 const requestParse = require('../lib/requestParse');
 const expect = require('chai').expect;
 
-
 describe('Request parse', function() {
   it('URL is full', function(done) {
     const req = { 
@@ -25,7 +24,6 @@ describe('Request parse', function() {
     };
 
     const properties = requestParse(req);
-
     expect(properties.type).to.equal('system');
     expect(properties.system).to.equal('name.format');
     expect(properties.name).to.equal('');
@@ -48,6 +46,4 @@ describe('Request parse', function() {
     expect(properties.qs).to.equal('value=1');
     done();
   });
-
-
 });
