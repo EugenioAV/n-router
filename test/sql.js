@@ -8,37 +8,37 @@ describe('Create sentence for query', function() {
 
   context('when object has deep key', function() {
     it('eq', function() {
-      sentence = 'WHERE a = ?';
+      sentence = ' WHERE a = ?';
       obj = { a : { eq:  1 }};
       value = [1];
     });
 
     it('ne', function() {
-      sentence = 'WHERE a != ?';
+      sentence = ' WHERE a != ?';
       obj = { a : { ne:  1 }};
       value = [1];
     });
 
     it('gt', function() {
-      sentence = 'WHERE a > ?';
+      sentence = ' WHERE a > ?';
       obj = { a : { gt:  1 }};
       value = [1];
     });
 
     it('lt', function() {
-      sentence = 'WHERE a < ?';
+      sentence = ' WHERE a < ?';
       obj = { a : { lt:  1 }};
       value = [1];
     });
 
     it('gte', function() {
-      sentence = 'WHERE a >= ?';
+      sentence = ' WHERE a >= ?';
       obj = { a : { gte:  1 }};
       value = [1];
     });
 
     it('lte', function() {
-      sentence = 'WHERE a <= ?';
+      sentence = ' WHERE a <= ?';
       obj = { a : { lte:  1 }};
       value = [1];
     });
@@ -56,8 +56,8 @@ describe('Create sentence for query', function() {
     });
 
     afterEach(function(done) {
-      const query = sql.get(obj, [], () => { return '?';});
-      expect(query.str).to.equal(sentence);
+      const query = sql.get('', obj, () => { return '?';});
+      expect(query.query).to.equal(sentence);
       expect(query.value).to.be.an('array').to.have.ordered.members(value);
       done();
     });
@@ -71,13 +71,13 @@ describe('Create sentence for query', function() {
     });
 
     it('without deep keys', function() {
-      sentence = 'WHERE a = ? && b = ?';
+      sentence = ' WHERE a = ? && b = ?';
       obj = { a : 1 , b : 2 };
       value = [1, 2]; 
     });
 
     it('has different keys', function() {
-      sentence = 'WHERE x = ? && y != ? && b > ? && b <= ? LIMIT 5 OFFSET 6';
+      sentence = ' WHERE x = ? && y != ? && b > ? && b <= ? LIMIT 5 OFFSET 6';
       obj = { 
         x : 'one',
         y : { ne : 2 },
@@ -88,8 +88,8 @@ describe('Create sentence for query', function() {
     });
 
     afterEach(function(done) {
-      const query = sql.get(obj, [], () => { return '?';});
-      expect(query.str).to.equal(sentence);
+      const query = sql.get('', obj, () => { return '?';});
+      expect(query.query).to.equal(sentence);
       expect(query.value).to.be.an('array').to.have.ordered.members(value);
       done();
     });

@@ -1,4 +1,4 @@
-const requestParse = require('../lib/requestParse');
+const requestParse = require('../lib/parsers/request');
 const expect = require('chai').expect;
 
 describe('Request parse', function() {
