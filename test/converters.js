@@ -2,8 +2,8 @@ const converters = require('../lib/converters');
 const stream = require('stream');
 const expect = require('chai').expect;
 
-const { xml: XMLConverter } = converters;
-const { json: JSONConverter } = converters; 
+const XMLConverter = converters['application/xml'];
+const JSONConverter = converters['application/json']; 
 
 describe('Converters', function() { 
   describe('JSONConverter', function() {
