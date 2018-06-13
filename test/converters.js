@@ -36,7 +36,7 @@ describe('Converters', function() {
         });
 
         it('push null', function() {
-          expect(converter.read()).to.equal(null);
+          expect(converter.read()).to.be.an('array').that.is.empty;
         });
       });
 
@@ -65,22 +65,17 @@ describe('Converters', function() {
         });
       });
 
-      context('converts not full json objects to arrays', function() {
+      context('converts json objects with several write to array', function() {
         beforeEach(function(done) {
           converter.write('[{ "a" : 1 } , { "b"');
           converter.write(': 2 }');
           converter.end(done);
         });
 
-        it('push first array with data', function() { 
-          var data = converter.read();      
-          expect(data[0]).to.deep.equal({a: 1});
-        });
-
-        it('push second array with data', function() { 
+        it('push array of data with all values', function() { 
           var data = converter.read();
-          data = converter.read();
-          expect(data[0]).to.deep.equal({b: 2});
+          expect(data[0]).to.deep.equal({a: 1});
+          expect(data[1]).to.deep.equal({b: 2});
         });
       });
     });
@@ -116,7 +111,7 @@ describe('Converters', function() {
         });
 
         it('push null', function() {
-          expect(converter.read()).to.equal(null);
+          expect(converter.read()).to.be.an('array').that.is.empty;
         });
       });
 
@@ -125,13 +120,13 @@ describe('Converters', function() {
           converter.end('<row><a>1</a></row>', done);
         });
 
-        it('has all values', function() { 
+        it('push array of data with all values', function() { 
           var data = converter.read();    
           expect(data[0]).to.deep.equal({a: 1});
         });
       });
 
-      context('converts several xml objects to arrays', function() {
+      context('converts several xml objects to array', function() {
         beforeEach(function(done) {
           converter.write('<rows><row><a>1</a></row><row><b>2</b></row></rows>');
           converter.end(done);
@@ -145,21 +140,17 @@ describe('Converters', function() {
 
       });
 
-      context('converts not full xml objects to js', function() {
+      context('converts xml objects with several write to array', function() {
         beforeEach(function(done) {
           converter.write('<rows><row><a>temp</a></row><row><b>2');
           converter.write('5</b></row></rows>'); 
           converter.end(done);
         });
-        it('push first array with data', function() { 
+
+        it('push array of data with all values', function() {
           var data = converter.read();
           expect(data[0]).to.deep.equal({a: 'temp'});
-        });
-
-        it('push second array with data', function() { 
-          converter.read();
-          var data = converter.read();
-          expect(data[0]).to.deep.equal({b: 25});
+          expect(data[1]).to.deep.equal({b: 25});
         });
       });
     });
