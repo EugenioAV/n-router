@@ -10,12 +10,12 @@ describe('Converters', function() {
     describe('contentType', function() {
       it('should not be writable', function() {
         expect(JSONConverter).to.have.ownPropertyDescriptor('contentType')
-          .that.has.property('writable', false);
+        .that.has.property('writable', false);
       });
 
       it('should be enumerable', function() {
         expect(JSONConverter).to.have.ownPropertyDescriptor('contentType')
-          .that.has.property('enumerable', true);
+        .that.has.property('enumerable', true);
       });
     });
 
@@ -36,7 +36,7 @@ describe('Converters', function() {
         });
 
         it('push null', function() {
-          expect(converter.read()).to.be.an('array').that.is.empty;
+          expect(converter.read()).to.equal(null);
         });
       });
 
@@ -72,10 +72,15 @@ describe('Converters', function() {
           converter.end(done);
         });
 
-        it('push array of data with all values', function() { 
-          var data = converter.read();
+        it('push first array with data', function() { 
+          var data = converter.read();      
           expect(data[0]).to.deep.equal({a: 1});
-          expect(data[1]).to.deep.equal({b: 2});
+        });
+
+        it('push second array with data', function() { 
+          var data = converter.read();
+          data = converter.read();
+          expect(data[0]).to.deep.equal({b: 2});
         });
       });
     });
@@ -85,12 +90,12 @@ describe('Converters', function() {
     describe('contentType', function() {
       it('should not be writable', function() {
         expect(XMLConverter).to.have.ownPropertyDescriptor('contentType')
-          .that.has.property('writable', false);
+        .that.has.property('writable', false);
       });
 
       it('should be enumerable', function() {
         expect(XMLConverter).to.have.ownPropertyDescriptor('contentType')
-          .that.has.property('enumerable', true);
+        .that.has.property('enumerable', true);
       });
     });
 
@@ -111,7 +116,7 @@ describe('Converters', function() {
         });
 
         it('push null', function() {
-          expect(converter.read()).to.be.an('array').that.is.empty;
+          expect(converter.read()).to.equal(null);
         });
       });
 
@@ -145,12 +150,16 @@ describe('Converters', function() {
           converter.write('<rows><row><a>temp</a></row><row><b>2');
           converter.write('5</b></row></rows>'); 
           converter.end(done);
-        });
-
-        it('push array of data with all values', function() {
+        });       
+        it('push first array with data', function() { 
           var data = converter.read();
           expect(data[0]).to.deep.equal({a: 'temp'});
-          expect(data[1]).to.deep.equal({b: 25});
+        });
+
+        it('push second array with data', function() { 
+          converter.read();
+          var data = converter.read();
+          expect(data[0]).to.deep.equal({b: 25});
         });
       });
     });
