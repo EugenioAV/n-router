@@ -47,8 +47,7 @@ describe('Converters', function() {
 
         it('push array of data with all values', function() { 
           var data = converter.read();       
-          expect(data).to.be.an('array');
-          expect(data[0]).to.deep.equal({a: 1});
+          expect(data).to.deep.equal({a: 1});
         });
       });
 
@@ -58,10 +57,8 @@ describe('Converters', function() {
         });
 
         it('push array of data with all values', function() { 
-          var data = converter.read();       
-          expect(data).to.be.an('array');
-          expect(data[0]).to.deep.equal({a: 1});
-          expect(data[1]).to.deep.equal({b: 2});
+          expect(converter.read()).to.deep.equal({a: 1});
+          expect(converter.read()).to.deep.equal({b: 2});
         });
       });
 
@@ -74,13 +71,13 @@ describe('Converters', function() {
 
         it('push first array with data', function() { 
           var data = converter.read();      
-          expect(data[0]).to.deep.equal({a: 1});
+          expect(data).to.deep.equal({a: 1});
         });
 
         it('push second array with data', function() { 
           var data = converter.read();
           data = converter.read();
-          expect(data[0]).to.deep.equal({b: 2});
+          expect(data).to.deep.equal({b: 2});
         });
       });
     });
@@ -127,7 +124,7 @@ describe('Converters', function() {
 
         it('push array of data with all values', function() { 
           var data = converter.read();    
-          expect(data[0]).to.deep.equal({a: 1});
+          expect(data).to.deep.equal({a: 1});
         });
       });
 
@@ -137,10 +134,9 @@ describe('Converters', function() {
           converter.end(done);
         });
 
-        it('push array of data with all values', function() { 
-          var data = converter.read();       
-          expect(data[0]).to.deep.equal({a: 1});
-          expect(data[1]).to.deep.equal({b: 2});
+        it('push array of data with all values', function() {        
+          expect(converter.read()).to.deep.equal({a: 1});
+          expect(converter.read()).to.deep.equal({b: 2});
         });
 
       });
@@ -153,13 +149,13 @@ describe('Converters', function() {
         });       
         it('push first array with data', function() { 
           var data = converter.read();
-          expect(data[0]).to.deep.equal({a: 'temp'});
+          expect(data).to.deep.equal({a: 'temp'});
         });
 
         it('push second array with data', function() { 
           converter.read();
           var data = converter.read();
-          expect(data[0]).to.deep.equal({b: 25});
+          expect(data).to.deep.equal({b: 25});
         });
       });
     });
