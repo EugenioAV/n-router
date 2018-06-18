@@ -43,7 +43,8 @@ describe('Request parse', function() {
     expect(properties.type).to.equal('dataset');
     expect(properties.system).to.equal('system');
     expect(properties.name).to.equal('name');
-    expect(properties.format).to.equal('format');
+    expect(properties.format).to.equal('xml');
+    expect(properties.accept_type).to.equal('format');
     expect(properties.qs).to.equal('value=1');
     done();
   });
