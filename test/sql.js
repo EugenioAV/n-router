@@ -57,7 +57,7 @@ describe('Create sentence for query', function() {
 
     afterEach(function(done) {
       const query = sql.get('', obj, () => { return '?';});
-      expect(query.query).to.equal(sentence);
+      expect(query.sql).to.equal(sentence);
       expect(query.value).to.be.an('array').to.have.ordered.members(value);
       done();
     });
@@ -89,7 +89,7 @@ describe('Create sentence for query', function() {
 
     afterEach(function(done) {
       const query = sql.get('', obj, () => { return '?';});
-      expect(query.query).to.equal(sentence);
+      expect(query.sql).to.equal(sentence);
       expect(query.value).to.be.an('array').to.have.ordered.members(value);
       done();
     });
